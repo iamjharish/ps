@@ -1,4 +1,4 @@
-function Invoke-Shellcode
+function psh
 {
 [CmdletBinding( DefaultParameterSetName = 'RunLocal', SupportsShouldProcess = $True , ConfirmImpact = 'High')] Param (
     [ValidateNotNullOrEmpty()]
