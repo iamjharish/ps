@@ -19,11 +19,6 @@ function psh
     [Switch]
     $ListMetasploitPayloads,
     
-    
-    [Parameter( Mandatory = $True,
-                ParameterSetName = 'Metasploit' )]
-    [ValidateRange( 1,65535 )]
-    [Int]
     $Lport = 443,
     
     [Parameter( ParameterSetName = 'Metasploit' )]
